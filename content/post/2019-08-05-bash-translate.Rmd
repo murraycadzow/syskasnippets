@@ -1,0 +1,38 @@
+---
+title: bash translate
+author: Murray Cadzow
+date: '2019-08-05'
+slug: bash-translate
+categories:
+  - bash
+tags:
+  - bash
+description: ''
+images:
+  - /2016/10/image.jpg
+---
+
+tr or "translate or delete characters" is a super useful program on the command line.
+
+My most common usage is to convert delimiters in files, such as tab separated to comma separated:
+```
+tr "\t" "," < tab_separated_file.tsv
+```
+
+or to work out how many columns I have by taking the first line of a file and converting the delimiters to new lines and then counting the number of lines:
+```{bash}
+echo -e "col1\tcol2\tcol3" > file.tsv
+head -n 1 file.tsv | tr "\t" "\n" | wc -l
+```
+
+Or if you want to remove whitespace padding from a fixed width output:
+```{bash}
+echo 'some      fixed   width   text' | tr -s ' ' 
+```
+
+One super useful feature for the genetically inclined is mapping characters to be changed, for instance creating the complement for strand of DNA:
+```{bash}
+echo ACGTGGTAACT | tr ACGT TGCA
+```
+
+tr takes the characters by index in the first argument and will translate them to the same indexed character in the second argument.
